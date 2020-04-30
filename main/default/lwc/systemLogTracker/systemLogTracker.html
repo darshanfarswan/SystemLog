@@ -1,34 +1,50 @@
 <template>
-    <div>
-        <div class="slds-m-around_medium slds-align_absolute-center">
+    <div class="slds-box slds-theme_shade slds-theme_alert-texture">
+        <div class="slds-m-around_medium">
             <div>
-                <p>Click on Subscribe/Unsubscribe button follow/unfollow real-time logs.</p>
-                <lightning-button-group> 
-                    <lightning-button label="Subscribe" onclick={subscribeEvents}></lightning-button>
-                    <lightning-button label="Unsubscribe" onclick={unsubscribeEvents}></lightning-button>
-                </lightning-button-group>
+                <div class="slds-align_absolute-center">
+                    Click on the Toggle Buttons to show/hide the Log Levels.  
+                </div>
+                <div class="slds-m-around_medium slds-align_absolute-center">
+                    <lightning-button-group>
+                        <lightning-button label="Success" variant="success" onclick={toggleLevel}></lightning-button>
+                        <lightning-button label="Info" variant="success" onclick={toggleLevel}></lightning-button>
+                        <lightning-button label="Warning" variant="success" onclick={toggleLevel}></lightning-button>
+                        <lightning-button label="Error" variant="success" onclick={toggleLevel}></lightning-button>
+                    </lightning-button-group>
+                </div>
+                <div class="slds-align_absolute-center">
+                    Last Page Refreshed DateTime : {lastRefreshDateTime}
+                </div>
             </div>
+        </div>   
+        <div> 
+            <template for:each={filteredSystemLogs} for:item="systemLog">
+                <lightning-card key={systemLog.Id}>
+                    <h3 slot="title" class={systemLog.CardClass}>
+                        <lightning-icon icon-name={systemLog.IconName} size="x-small" style="margin-right: 4px"></lightning-icon>
+                        {systemLog.Log_Level__c}
+                    </h3>
+                    <p class="slds-p-horizontal_small">
+                        Message - {systemLog.Message__c}
+                    </p>
+                    <p class="slds-p-horizontal_small">
+                        Source - {systemLog.Source__c}
+                    </p>
+                    <p class="slds-p-horizontal_small">
+                        Application - {systemLog.Application__c}
+                    </p>
+                    <p class="slds-p-horizontal_small">
+                        Module - {systemLog.Module__c}
+                    </p>
+                    <p class="slds-p-horizontal_small">
+                        Stack Trace - {systemLog.Stack_Trace__c}
+                    </p>
+                    <div slot="footer">
+                        <lightning-button label="View Log" onclick={openSystemLog} value={systemLog.Id}></lightning-button>
+                    </div>
+                </lightning-card>
+            </template>
         </div>
     </div>
-    
-    <template for:each={systemLogs} for:item="systemLog">
-        <lightning-card key={systemLog.Id}>
-            <h3 slot="title" class={systemLog.CardClass}>
-                <lightning-icon icon-name={systemLog.IconName} size="x-small" style="margin-right: 4px"></lightning-icon>
-                {systemLog.Log_Level__c}
-            </h3>
-            <p class="slds-p-horizontal_small">
-                Message - {systemLog.Message__c}
-            </p>
-            <p class="slds-p-horizontal_small">
-                Source - {systemLog.Source__c}
-            </p>
-            <p class="slds-p-horizontal_small">
-                Stack Trace - {systemLog.Stack_Trace__c}
-            </p>
-            <div slot="footer">
-                <lightning-button label="View Log" onclick={openSystemLog} value={systemLog.Id}></lightning-button>
-            </div>
-        </lightning-card>
-    </template>
 </template>

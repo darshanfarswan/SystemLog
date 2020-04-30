@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application__c</fullName>
+    <description>Specific application against which the System Log is generated.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specific application against which the System Log is generated.</inlineHelpText>
+    <label>Application</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
